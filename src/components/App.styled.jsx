@@ -19,11 +19,13 @@ export const Container = styled.div`
 export const Form = styled.form`
     display: flex;
     flex-direction: column;
-    padding: 5px;
+    margin-top: 10px;
+    padding: 15px;
     gap: 20px;
-    // width: 500px;
+    width: 400px;
     // box-sizing: border-box;
     border: 1px solid;
+    border-radius: 5px;
     font-weight: bold;
 `;
 
@@ -32,9 +34,18 @@ export const ContactsList = styled.ul`
     padding: 5px;
 `;
 
-export const ContactTitle = styled.p`
+export const ContactTitle = styled.h3`
     font-weight: bold;
     margin: 5px;
+    margin-bottom: 10px;
+`;
+
+export const ContactFilter = styled.p`
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    margin: 5px;
+    margin-bottom: 10px;
 `;
 
 export const ContactName = styled.li`
