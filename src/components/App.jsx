@@ -6,7 +6,8 @@ import { Container, Form, ContactsList, ContactTitle, ContactName } from './App.
 export class App extends Component {
   state = {
     contacts: [],
-    name: ''
+    name: '',
+    number: ''
   }
 
   nameInputId = nanoid(10);
@@ -16,8 +17,9 @@ export class App extends Component {
   // };
 
   handleChange = event => {
-    const { name, value } = event.currentTarget;
-    this.setState({ [name]: value })
+    const { name, number, value } = event.currentTarget;
+    this.setState({ [name]: value });
+    this.setState({ [number]: value });
   };
 
   handleSubmit = event => {
@@ -27,12 +29,14 @@ export class App extends Component {
 
     const newContact = {
       id: nanoid(10),
-      name: this.state.name
+      name: this.state.name,
+      number: this.state.number,
     };
 
     this.setState(prevState => ({
       contacts: [...prevState.contacts, newContact],
-      name: ''
+      name: '',
+      number: '',
     }), this.reset);
   };
 
@@ -55,6 +59,7 @@ export class App extends Component {
         }}
       >
         <Container>
+          Phonebook
           {/* <Form submitProp={this.submitForm} /> */}
           <Form onSubmit={this.handleSubmit}>
             <label htmlFor={this.nameInputId}>
@@ -69,7 +74,20 @@ export class App extends Component {
               value={this.state.name}
               onChange={this.handleChange} />
 
-            <button type='submit'>Add contact</button>            
+            <label htmlFor={this.numberInputId}>
+              Number: 
+            </label>
+            <input
+              type="tel"
+              name="number"
+              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+              required
+              id={this.numberInputId}
+              value={this.state.number}
+              onChange={this.handleChange} />  
+
+              <button type='submit'>Add contact</button>          
           </Form>
 
           <ContactsList>
@@ -78,7 +96,7 @@ export class App extends Component {
                 return (
                 <ContactName
                   key={contact.id}>
-                  {contact.name}
+                  {contact.name}: {contact.number}
                 </ContactName>
                 );
               })}
