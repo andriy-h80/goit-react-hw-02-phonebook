@@ -1,8 +1,9 @@
   import React, { Component } from "react";
   import { nanoid } from 'nanoid';
-  import { Container, Form, ContactsList, ContactTitle, ContactFilter, ContactName } from './App.styled';
-  // import Form from './Form/Form';
-
+  import { Phonebook, Container, ContactsList, Contacts, ContactName } from './App.styled';
+  import ContactForm from './ContactForm/ContactForm';
+  import Filter from './Filter/Filter';
+  
   export class App extends Component {
     state = {
       contacts: [
@@ -12,11 +13,7 @@
         {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
       ],
       filter: '',
-      name: '',
-      number: ''
     }
-
-    nameInputId = nanoid(10);
 
     handleChange = event => {
       const { name, value } = event.currentTarget;
@@ -25,17 +22,18 @@
 
     handleSubmit = event => {
       event.preventDefault();
+      const { name, number } = event.currentTarget;
 
-      // this.props.submitProp(this.state);
+
 
       const newContact = {
         id: nanoid(10),
-        name: this.state.name,
-        number: this.state.number,
+        name: name.value,
+        number: number.value
       };
 
       this.setState(prevState => ({
-        contacts: [...prevState.contacts, newContact],
+        contacts: [newContact, ...prevState.contacts],
         name: '',
         number: '',
       }), this.reset);
@@ -45,68 +43,27 @@
       this.setState({ name: '', number: ''})
     }
 
-    // submitForm = data => {
-    //   console.log(data);
-    // };
+    deleteContacts = contactId => {
+      this.setState(prevState => ({
+        contacts: prevState.contacts.filter(contact => contact.id !== contactId),
+      }));
+    };
 
 
     render() {
       const filteredContacts = this.state.contacts.filter(contact => {
         return contact.name.toLowerCase().includes(this.state.filter.toLowerCase())
-    });
+      });
 
       return (
-        <div
-        style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            fontSize: 24,
-          }}
-        >
+        <Phonebook>
           <Container>
             Phonebook
-            {/* <Form submitProp={this.submitForm} /> */}
-            <Form onSubmit={this.handleSubmit}>
-              <label htmlFor={this.nameInputId}>
-                Name: 
-              </label>
-              <input
-                type="text"
-                name="name"
-                pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-                title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan" required
-                id={this.nameInputId}
-                value={this.state.name}
-                onChange={this.handleChange} />
-
-              <label htmlFor={this.number}>
-                Number: 
-              </label>
-              <input
-                type="tel"
-                name="number"
-                pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-                title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +" required
-                id={this.number}
-                value={this.state.number}
-                onChange={this.handleChange} />  
-
-                <button type='submit'>Add contact</button>          
-            </Form>
+            <ContactForm onSubmit={this.handleSubmit} />    
 
             <ContactsList>
-              <ContactTitle>Contacts</ContactTitle>
-              <ContactFilter>
-              Find contacts by name 
-              <input
-                type="text"
-                name="filter"
-                pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-                title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-                value={this.state.filter}
-                onChange={this.handleChange} />
-              </ContactFilter>
+              <Contacts>Contacts</Contacts>
+              <Filter value={this.state.filter} onChange={this.handleChange} />
 
                 {filteredContacts.map(contact => {
                   return (
@@ -119,7 +76,7 @@
             </ContactsList>
 
           </Container>
-        </div>
+        </Phonebook>
       );
     }
   };
