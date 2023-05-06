@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Form, Button } from './ContactForm.styled';
+import { Form, ButtonAdd } from './ContactForm.styled';
 
 const ContactForm = ({onSubmit}) => {
     return (
@@ -26,7 +26,7 @@ const ContactForm = ({onSubmit}) => {
             id="number"
             />  
 
-            <Button type='submit'>Add contact</Button>          
+            <ButtonAdd type='submit' aria-label="Add contact">Add contact</ButtonAdd>          
         </Form>
     )
 }

@@ -13,8 +13,9 @@ export const Form = styled.form`
     font-weight: bold;
 `;
 
-export const Button = styled.button`
+export const ButtonAdd = styled.button`
   font-size: 16px;
+  font-weight: bold;
   text-align: center;
   cursor: pointer;
   width: 150px;
@@ -23,4 +24,5 @@ export const Button = styled.button`
   color: #000000;
   border: 1px solid;
   border-radius: 5px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 `;

@@ -6,4 +6,5 @@ export const FilterStyled = styled.div`
     font-weight: bold;
     margin: 5px;
     margin-bottom: 10px;
+    gap: 10px;
 `;

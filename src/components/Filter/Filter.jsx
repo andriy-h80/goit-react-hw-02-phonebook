@@ -4,7 +4,9 @@ import { FilterStyled } from './Filter.styled';
 const Filter = ({ value, onChange }) => {
   return (
     <FilterStyled>
-      <label htmlFor="filter">Find contacts by name</label>
+      <label htmlFor="filter">
+        Find contacts by name
+      </label>
       <input
         type="text"
         name="filter"
